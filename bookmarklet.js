@@ -36,9 +36,7 @@ javascript:(function() {
 
             switch(data.type) {
                 case 'message':
-                    notification.style.background = '#4CAF50';
-                    notification.textContent = data.content;
-                    setTimeout(() => notification.remove(), 5000);
+                    alert(data.content)
                     break;
                 case 'website':
                     if (data.content.startsWith('http://') || data.content.startsWith('https://')) {
