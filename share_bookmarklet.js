@@ -1,21 +1,21 @@
 javascript:(function() {
     const BASE_URL = 'https://p23api.onrender.com';
-    
+
     function shareCurrentPage() {
-        const currentUrl = window.location.href;
-        const formData = new FormData();
-        formData.append('type', 'website');
-        formData.append('content', currentUrl);
-        
+        const currentUrl = encodeURIComponent(window.location.href); // Encode the URL
+        const type = 'website';
+
+        // Construct the URL with query parameters
+        const requestUrl = `${BASE_URL}/set_node?type=${type}&content=${currentUrl}`;
+
         // Add visual feedback
         const notification = document.createElement('div');
         notification.style.cssText = 'position:fixed;top:20px;right:20px;padding:15px;background:#4CAF50;color:white;border-radius:5px;z-index:9999;transition:0.3s;box-shadow:0 2px 5px rgba(0,0,0,0.2);';
         notification.textContent = 'Sharing page...';
         document.body.appendChild(notification);
-        
-        fetch(`${BASE_URL}/set_node`, {
-            method: 'GET',
-            body: formData
+
+        fetch(requestUrl, { // Use the constructed URL
+            method: 'GET'
         })
         .then(response => response.json())
         .then(data => {
@@ -34,6 +34,6 @@ javascript:(function() {
             setTimeout(() => notification.remove(), 5000);
         });
     }
-    
+
     shareCurrentPage();
 })();
