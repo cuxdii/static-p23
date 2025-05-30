@@ -36,6 +36,7 @@ javascript:(function() {
 
             switch(data.type) {
                 case 'message':
+                    notification.remove()
                     alert(data.content)
                     break;
                 case 'website':
